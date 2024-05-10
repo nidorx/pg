@@ -56,22 +56,22 @@ func (t *Table[T]) getDb() (*Database, error) {
 	return t.db, nil
 }
 
-func (t *Table[T]) Insert(values ...T) (bool, error) {
-	if db, err := t.getDb(); err != nil {
-		return false, err
-	} else if exist, err := db.QueryForBoolean(tableQueryExists, t.schema, t.table); err != nil {
-		return false, errors.New(fmt.Sprintf("unable to check whether table " + t.identifier + " exists (cause: " + err.Error() + ")"))
-	} else {
-		return exist, nil
-	}
-}
+//func (t *Table[T]) Insert(values ...T) (bool, error) {
+//	if db, err := t.getDb(); err != nil {
+//		return false, err
+//	} else if exist, err := db.QueryForBoolean(tableQueryExists, t.schema, t.table); err != nil {
+//		return false, errors.New(fmt.Sprintf("unable to check whether table " + t.identifier + " exists (cause: " + err.Error() + ")"))
+//	} else {
+//		return exist, nil
+//	}
+//}
 
 // table.Insert(vales)
 
 func NewTable[T any](schema, name string, model T) (*Table[T], error) {
-	if model == nil {
-		return nil, fmt.Errorf("%w: %+v", ErrUnsupportedDataType, model)
-	}
+	//if model == nil {
+	//	return nil, fmt.Errorf("%w: %+v", ErrUnsupportedDataType, model)
+	//}
 
 	value := reflect.ValueOf(model)
 	if value.Kind() == reflect.Ptr && value.IsNil() {
@@ -114,12 +114,12 @@ func (u *UserModel) talk() string {
 
 func teste() {
 
-	Users, _ := NewTable("auth", "t_user", UserModel{})
+	//Users, _ := NewTable("auth", "t_user", UserModel{})
+	//
+	//u := Users.model()
 
-	u := Users.model()
-
-	Users.Insert(map[string]string{})
-	Users.Insert(UserModel{})
+	//Users.Insert(map[string]string{})
+	//Users.Insert(UserModel{})
 
 	// user, err := Users.Get(50)
 	// user, err := Users.GetById(50)
@@ -142,7 +142,7 @@ func teste() {
 	// table.Select(where)
 	// table.Delete(where)
 
-	print(u.talk())
+	//print(u.talk())
 
 	//model := NewModel([]int{1, 2, 3})
 	//

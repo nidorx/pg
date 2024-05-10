@@ -90,6 +90,9 @@ func Open(config *Config) (*Database, error) {
 		}
 	}
 	instance.id = id
+	if instances == nil {
+		instances = make(map[string]*Database)
+	}
 	instances[id] = instance
 	instancesMu.Unlock()
 
